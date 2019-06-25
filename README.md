@@ -1,6 +1,24 @@
 # Graphql starter sample
 
-## Requirements:
+## Installing...
+
+### Docker Compose:
+
+* Install docker: 
+    - https://docs.docker.com/install/
+    - https://get.docker.com/
+* Install docker-compose
+    - https://docs.docker.com/compose/install/
+* Run docker-compose:
+
+```
+$ docker-compose build
+$ docker-compose up
+```
+* Access: http://0.0.0.0:5000/
+
+
+## Python dependencies.
 
 ```
 aniso8601==6.0.0

@@ -23,7 +23,7 @@ services:
       DB_USERNAME: logan
       DB_PASSWORD: logan
       DB_DATABASE: logan
-      DB_HOST: logan
+      DB_HOST: database
     links:
       - database
     networks:
@@ -31,7 +31,7 @@ services:
 
   database:
     container_name: database
-    image: mysql:5.7
+    image: mysql:8.0.16
     restart: always
     environment:
       MYSQL_DATABASE: logan
