@@ -1,0 +1,51 @@
+# docker-compose.yml
+
+version: "3"
+networks:
+  backend:
+
+
+services:
+
+  server:
+    container_name: flask
+    build:
+      context: .  # here changed
+      dockerfile: ./docker/python/Dockerfile
+    ports:
+      - '5000:5000'
+    expose:
+      - '5000'
+    volumes: ['.:/usr/src/app']
+    restart: always
+    environment:
+      ENV: DEVELOPMENT
+      DB_USERNAME: logan
+      DB_PASSWORD: logan
+      DB_DATABASE: logan
+      DB_HOST: logan
+    links:
+      - database
+    networks:
+        - backend
+
+  database:
+    container_name: database
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: logan
+      MYSQL_USER: logan
+      MYSQL_PASSWORD: logan
+      MYSQL_ROOT_PASSWORD: logan
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - flask-db:/var/lib/mysql
+    networks:
+      - backend
+
+volumes:
+  flask-db:
