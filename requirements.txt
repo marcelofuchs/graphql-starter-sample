@@ -1,5 +1,8 @@
 aniso8601==6.0.0
+asn1crypto==0.24.0
+cffi==1.12.3
 Click==7.0
+cryptography==2.7
 Flask==1.0.3
 Flask-GraphQL==2.0.0
 Flask-Script==2.0.6
@@ -13,6 +16,7 @@ Jinja2==2.10.1
 MarkupSafe==1.1.1
 oauthlib==3.0.1
 promise==2.2.1
+pycparser==2.19
 PyMySQL==0.9.3
 Rx==1.6.1
 six==1.12.0
