@@ -10,9 +10,9 @@ services:
       context: .  # here changed
       dockerfile: ./docker/python/Dockerfile
     ports:
-      - '81:5000'
+      - '5000:5000'
     expose:
-      - '81'
+      - '5000'
     volumes: ['.:/usr/src/app']
     restart: always
     environment:
@@ -26,31 +26,68 @@ services:
     networks:
         - backend
 
-  database:
-    image: mysql:latest
-    container_name: database
-    environment:
-      MYSQL_ROOT_PASSWORD: "loganpw"
-      MYSQL_DATABASE: "logan"
-      MYSQL_USER: "loganus"
-      MYSQL_PASSWORD: "loganpw"
-    expose:
-      - 3306
-    ports:
-      - "3306:3306"
-    volumes:
-      - flask-db:/var/lib/mysql
-    networks:
-      - backend
+#  database:
+#    image: mysql:latest
+#    container_name: database
+#    environment:
+#      MYSQL_ROOT_PASSWORD: loganpw
+#      MYSQL_DATABASE: logan
+#      MYSQL_USER: loganus
+#      MYSQL_PASSWORD: loganpw
+#    ports:
+#      - "33060:33060"
+##    expose:
+##      - 3306
+#    volumes:
+#      - flask-db:/var/lib/mysql
+#    networks:
+#      - backend
+#
+#  adminer:
+#    image: adminer
+#    ports:
+#      - "8080:8080"
+#    links:
+#      - database
+#    networks:
+#      - backend
 
-  adminer:
-    image: adminer
-    ports:
-      - "8080:8080"
-    links:
-      - database
-    networks:
-      - backend
+  database:
+      container_name: database
+      build: ./docker/postgres
+      restart: always
+      volumes:
+          - ~/GraphSample/postgres/data:/var/lib/postgresql/data
+      environment:
+          POSTGRES_USER: loganus
+          POSTGRES_PASSWORD: loganpw
+          POSTGRES_DB: logan
+      ports:
+          - "5432:5432"
+      networks:
+          - backend
+
+  pgadmin:
+      container_name: pgadmin
+      build: ./docker/pgadmin
+      logging:
+         driver: none
+      environment:
+         PGADMIN_DEFAULT_EMAIL: marcelof29@gmail.com
+         PGADMIN_DEFAULT_PASSWORD: user123456
+  #            MAIL_SERVER: redis
+  #            MAIL_PORT: 25
+  #            MAIL_USE_SSL: False
+  #            MAIL_USE_TLS: False
+  #            MAIL_USERNAME: None
+  #            MAIL_PASSWORD: None
+      ports:
+         - "5050:80"
+      links:
+         - database
+      networks:
+          - backend
+
 
 volumes:
   flask-db:

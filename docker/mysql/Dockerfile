@@ -4,4 +4,4 @@
 FROM mysql:latest
 
 # Expose port so that it's accessible to external connections
-EXPOSE 3306
+#EXPOSE 3306

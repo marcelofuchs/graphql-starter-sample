@@ -18,6 +18,7 @@ def create_app():
 
     @app.before_first_request
     def initialize_database():
+        from app.models import Department, Role, Employee
         """ Create all tables """
         db.create_all()
 
